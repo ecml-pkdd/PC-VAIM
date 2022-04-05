@@ -36,14 +36,8 @@ python3 train.py
   
  ## Results:
 
- 
-  ## Example plots results after 500 epochs:
-| f</sub>(x) = ax<sup>2| 
-|------------|
-| <img src="gallery/result.pdf" width="250"> |
-
-| latent of  ax<sup>2|
-|------------|
-| <img src="gallery/latent.png" width="250"> |
-
+ ## Example on toy data after 500 epochs:
+| f</sub>(x) = ax<sup>2      | latent      |
+|------------|-------------|
+| <img src="gallery/result.png" width="350"> | <img src="gallery/latent.png" width="350"> |
 
