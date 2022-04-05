@@ -30,7 +30,7 @@ cd PC-VAIM
 ``` bash
 python3 train.py
 ``` 
-* This will run the toy example which is f</sub>(x) = ax<sup>2.
+* This will run the toy example which is f</sub>(x) = (ax)<sup>2.
 * To see a demo using a saved model, go to PC-VAIM_demo.ipynb.
   
   
