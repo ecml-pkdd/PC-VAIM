@@ -8,10 +8,18 @@ The code is written in Python=3.6, with the following libraries:
 * tensorflow==2.8.0
 * tensorflow_graphics==2021.12.3
 * numpy==1.21.5
-See requirements.tex file to get the full list of libraries.
+-------------------------------------------------------------------
+* To get the list of the libraries, see the file:
+``` bash
+requirements.tex
+``` 
+* To get the list of the libraries with all of the dependencies, see the file:
+``` bash
+requirements_dependency.tex
+``` 
 
 ## Getting started
-* Install the python libraries. ([requirements.tex]).
+* Install the python libraries.
 * Download the code from GitHub:
 ```bash
 git clone https://github.com/ecml-pkdd/PC-VAIM.git
