@@ -40,10 +40,10 @@ python3 train.py
   ## Example plots results after 500 epochs:
 | f</sub>(x) = ax<sup>2| 
 |------------|
-| <img src="gallery/x2.png" width="250"> |
+| <img src="gallery/result.pdf" width="250"> |
 
 | latent of  ax<sup>2|
 |------------|
-| <img src="gallery/latent_x2a.png" width="250"> |
+| <img src="gallery/latent.png" width="250"> |
 
 
