@@ -34,8 +34,8 @@ python3 train.py
 |------------|
 | <img src="gallery/x2.png" width="250"> |
 
-| latent of  x<sup>2   |
-|------------|-------------|
+| latent of  x<sup>2|
+|------------|
 | <img src="gallery/latent_x2a.png" width="250"> |
 
 
