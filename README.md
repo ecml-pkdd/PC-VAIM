@@ -11,10 +11,10 @@ The code is written in Python=3.6, with the following libraries:
 See requirements.tex file to get the full list of libraries.
 
 ## Getting started
-* Install the python libraries. (See [Requirements](https://github.com/ecml-pkdd/PC-VAIM#requirements)).
+* Install the python libraries. ([requirements.tex]).
 * Download the code from GitHub:
 ```bash
-git clone https://github.com/ecml-pkdd/PC-VAIM
+git clone https://github.com/ecml-pkdd/PC-VAIM.git
 cd PC-VAIM
 ```
 
