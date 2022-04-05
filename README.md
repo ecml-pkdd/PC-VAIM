@@ -11,11 +11,11 @@ The code is written in Python=3.6, with the following libraries:
 -------------------------------------------------------------------
 * To get the list of the libraries, see the file:
 ``` bash
-requirements.tex
+requirements.txt
 ``` 
 * To get the list of the libraries with all of the dependencies, see the file:
 ``` bash
-requirements_dependency.tex
+requirements_dependency.txt
 ``` 
 
 ## Getting started
