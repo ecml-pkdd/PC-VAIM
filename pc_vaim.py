@@ -34,11 +34,11 @@ import os
 os.environ["CUDA_VISIBLE_DEVICES"]="0"
 
 
-class VAIM():
+class PC_VAIM():
     
     def __init__(self):
     
-        # default is set to x2 toy example
+        # define parameters
         self.act='tanh'
         self.NUM_CLASSES = 1
         self.BATCH_SIZE = 64
@@ -50,17 +50,12 @@ class VAIM():
         self.DIR = 'outputs/'
         self.history = History()
         
-        #opt = Adam(lr=1e-3, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.0)  
-        opt = Adam(learning_rate=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.00000)
-
-        
+  
+        opt = Adam(learning_rate=0.0001, beta_1=0.9, beta_2=0.999, epsilon=1e-08, decay=0.00000)      
         inputs = Input(shape = self.input_shape, name='encoder_input')
         
         self.encoder = self.encoder(inputs)
-        
-
         self.decoder = self.decoder()
-        print('Done decoder......')
         outputs = self.decoder(self.encoder(inputs)[2:4])
    
         self.model = Model(inputs= inputs, outputs= outputs)
@@ -70,20 +65,16 @@ class VAIM():
     def encoder(self, inputs):
         aa    = tf.keras.Input(shape=(1,))
         x1_a  = Dense(512, activation=self.act,kernel_regularizer=l2(self.l2_reg))(aa)
-        #x1_a  = Dropout(0.2)(x1_a)
         x2_a  = Dense(512, activation=self.act, kernel_regularizer=l2(self.l2_reg))(x1_a)
-       # x2_a  = Dropout(0.2)(x2_a)
         x3_a  = Dense(512, activation=self.act,kernel_regularizer=l2(self.l2_reg))(x2_a)
         sc1_a = tf.keras.layers.Add()([x1_a,x3_a])
         x4_a  = Dense(512, activation=self.act,kernel_regularizer=l2(self.l2_reg))(sc1_a)
-
         x4    = Dense(512, activation=self.act,kernel_regularizer=l2(self.l2_reg))(x4_a)
         x4_   = Dense(self.NUM_POINTS*2, activation=self.act,kernel_regularizer=l2(self.l2_reg))(x4)
         y_x   = Reshape((self.NUM_POINTS,2))(x4_)
 
         self.z_mean    = Dense(self.latent_dim, name='z_mean')(x4_a)
         self.z_log_var = Dense(self.latent_dim, name='z_log_var')(x4_a)
-
         self.z = Lambda(self.sampling, output_shape=(self.latent_dim), name='z')([self.z_mean, self.z_log_var])
 
         encoder = Model(inputs=aa, outputs=[self.z_mean, self.z_log_var, self.z, y_x])
@@ -97,7 +88,6 @@ class VAIM():
         en_latent      = Input(shape=(self.latent_dim))
         en_yx          =  Input(shape=(self.NUM_POINTS,2),name='yx')
         en_yx_out      = Lambda(lambda x: x)(en_yx)
-
         rt_0           = self.tnet(en_yx,en_yx.shape[2])
         r1             = self.conv_bn(rt_0, 512)
         r2             = self.conv_bn(r1, 1024)
@@ -105,12 +95,11 @@ class VAIM():
         r_c1           = Add()([r1,r3])
         r6             = self.tnet(r_c1, 512)
         r7             = layers.GlobalMaxPooling1D()(r6)
-        con_input        = concatenate([en_latent,r7],name = 'concat')
-
-        r8             = Dense(1024, activation=self.act)(con_input)####
-        r9             = Dense(512, activation=self.act)(r8)####
-        r10             = Dense(1024, activation=self.act)(r9)####
-        r10             = Dense(1024, activation=self.act)(r10)####
+        con_input      = concatenate([en_latent,r7],name = 'concat')
+        r8             = Dense(1024, activation=self.act)(con_input)
+        r9             = Dense(512, activation=self.act)(r8)
+        r10            = Dense(1024, activation=self.act)(r9)
+        r10            = Dense(1024, activation=self.act)(r10)
 
         r_params       = Dense(self.NUM_CLASSES, name = 'param_output')(r10)
 
@@ -159,6 +148,7 @@ class VAIM():
           xxt = tf.reshape(xxt, (-1, self.num_features, self.num_features))
           return tf.reduce_sum(self.l2reg * tf.square(xxt - self.eye))
     
+    # -- tnet
     def tnet(self, inputs, num_features):
 
         # Initalise bias as the indentity matrix
@@ -181,7 +171,7 @@ class VAIM():
         return layers.Dot(axes=(2, 1))([inputs, feat_T])
 
     
-    # KL and mae loss
+    # KL and mse loss
     def vae_loss(self, inputs, outputs):
     
         mse_loss = mse(inputs, outputs)
@@ -191,7 +181,7 @@ class VAIM():
         loss = K.mean(kl_loss + mse_loss)
         return loss
 
-
+    # -- chamfer distance adopted from tensorflow API
     @tf.function
     def evaluate(self, point_set_a: type_alias.TensorLike,
                 point_set_b: type_alias.TensorLike,
