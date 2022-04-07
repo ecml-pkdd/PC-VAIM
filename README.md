@@ -31,7 +31,7 @@ cd PC-VAIM
 python3 train.py
 ``` 
 * This will produce the toy example shown in the paper f</sub>(x) = 1.
-* To see a demo using a saved model, go to PC-VAIM_demo.ipynb.
+* To see a demo, go to PC-VAIM_demo.ipynb.
   
   
  ## Results:
