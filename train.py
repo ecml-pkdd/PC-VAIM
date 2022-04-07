@@ -30,4 +30,4 @@ if __name__ == "__main__":
     plt.axvline(1, linestyle='dashed',color= 'r',label=r'$\rm  True$' )
     plt.axvline(-1, linestyle='dashed',color= 'r')
     plt.legend(frameon = 0, loc = 'upper center', fontsize = 20)
-    plt.savefig('outputs/results.png')
+    plt.savefig('gallery/results.png')
