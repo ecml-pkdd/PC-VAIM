@@ -48,6 +48,7 @@ class PCVAIM():
         self.epochs = 200
         self.l2_reg  = 1e-4
         self.DIR = 'outputs/'
+        checkdir(self.DIR)
         self.history = History()
         
         # -- optimizer
@@ -255,7 +256,11 @@ class PCVAIM():
                        batch_size= 64,validation_split=0.2,callbacks = [checkpointer, self.history])
         return self.history
 
-
+    
+ # -- check if direcorty exists, otherwise create one
+def checkdir(path):
+    if not os.path.exists(path): 
+        os.makedirs(path)
 
 # -- generate data samples
 def generate_data(N_samples = 4000, N_points=10):
@@ -269,8 +274,6 @@ def generate_data(N_samples = 4000, N_points=10):
         a_data = np.concatenate([a_data, a], axis = 0)
         
     fx= (a_data*x_data[:,:,0])**2
-
-
     fx_x_pointClouds= np.dstack([fx,x_data])
     X_train, X_test, y_train, y_test = train_test_split(fx_x_pointClouds, a_data, test_size=0.20)
 
