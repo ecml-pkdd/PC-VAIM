@@ -12,7 +12,7 @@ The code is written in Python=3.6, with the following libraries:
 
 * To get the list of all libraries with the dependencies, see the file:
 ``` bash
-requirements_dependency.txt
+requirements.txt
 ``` 
 
 ## Getting started
