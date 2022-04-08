@@ -9,11 +9,8 @@ The code is written in Python=3.6, with the following libraries:
 * tensorflow_graphics==2021.12.3
 * numpy==1.21.5
 -------------------------------------------------------------------
-* To get the list of the libraries, see the file:
-``` bash
-requirements.txt
-``` 
-* To get the list of the libraries with all of the dependencies, see the file:
+
+* To get the list of all libraries with the dependencies, see the file:
 ``` bash
 requirements_dependency.txt
 ``` 
